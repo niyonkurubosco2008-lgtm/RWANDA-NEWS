@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RWANDA NEWS - Urubuga rw'Amakuru n'Imyidagaduro</title>
+    
+    <!-- Google Search Console Tag -->
+    <meta name="google-site-verification" content="YOUR_VERIFICATION_TAG_HERE" />
+
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #ffffff;
+            --input-bg: #2a2a2a;
+            --border-color: #333333;
+            --primary-green: #00ff66;
+            --nav-bg: #1e1e1e;
+        }
+
+        .light-mode {
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #121212;
+            --input-bg: #e0e0e0;
+            --border-color: #cccccc;
+            --primary-green: #2e7d32;
+            --nav-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding-bottom: 20px;
+        }
+
+        /* NAVIGATION BAR */
+        nav {
+            background-color: var(--nav-bg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #2e7d32;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .universal-search {
+            flex: 1;
+            max-width: 300px;
+            display: flex;
+            gap: 5px;
+        }
+
+        .universal-search input {
+            width: 100%;
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            outline: none;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-green);
+        }
+
+        .theme-toggle-btn {
+            background: none;
+            border: 1px solid var(--primary-green);
+            color: var(--primary-green);
+            padding: 5px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        /* HERO SECTION */
+        .welcome-hero {
+            background-color: var(--card-bg);
+            border-bottom: 2px solid #2e7d32;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .hero-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-green);
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.3);
+            margin-bottom: 15px;
+        }
+
+        .typing-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            min-height: 2.5rem;
+        }
+
+        /* STORIES / STATUS SECTION */
+        .stories-wrapper {
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .stories-container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+        }
+
+        .story-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            min-width: 75px;
+        }
+
+        .story-avatar {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-green);
+            padding: 2px;
+            object-fit: cover;
+            background: var(--input-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-green);
+        }
+
+        .story-username {
+            font-size: 0.75rem;
+            margin-top: 5px;
+            text-align: center;
+            max-width: 70px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: bold;
+        }
+
+        /* STORY MODALS */
+        .story-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .story-modal-content {
+            background: var(--card-bg);
+            width: 90%;
+            max-width: 400px;
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            text-align: center;
+            border: 2px solid var(--primary-green);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px; right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #ff4757;
+            font-weight: bold;
+        }
+
+        /* LAYOUT */
+        .layout {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .main-content { flex: 3; }
+        .sidebar { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+
+        /* UPLOAD CARD */
+        .upload-card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 2px dashed var(--primary-green);
+        }
+
+        .upload-card h3 {
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .upload-form input, .upload-form textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--input-bg);
+            color: var(--text-color);
+            outline: none;
+        }
+
+        .upload-btn {
+            background: #2e7d32;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .upload-btn:hover {
+            background: var(--primary-green);
+            color: #000;
+        }
+
+        /* POST CARDS */
+        .post-card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .card-widget {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            border-top: 3px solid var(--primary-green);
+        }
+
+        footer {
+            background-color: var(--card-bg);
+            border-top: 2px solid #2e7d32;
+            padding: 20px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .layout { flex-direction: column; }
+            .nav-container { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">RWANDA NEWS</a>
+            <div class="universal-search">
+                <input type="text" id="universalSearchInput" onkeyup="handleSearch()" placeholder="🔍 Shaka amakuru...">
+            </div>
+            <div class="nav-right">
+                <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">🌙 Dark Mode</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <div class="welcome-hero">
+        <img src="niwowe.png" alt="RWANDA NEWS" class="hero-image" onerror="this.src='https://via.placeholder.com/150'">
+        <div class="typing-text">Murakaza neza kuri RWANDA NEWS!</div>
+    </div>
+
+    <!-- STORIES / STATUS -->
+    <div class="stories-wrapper">
+        <h4 style="margin-bottom: 10px; color: var(--primary-green);">📸 Status / Stories</h4>
+        <div class="stories-container" id="storiesContainer">
+            <div class="story-item" onclick="openAddStoryModal()">
+                <div class="story-avatar">+</div>
+                <div class="story-username">Shyiraho</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STORY INPUT MODAL -->
+    <div class="story-modal" id="addStoryModal">
+        <div class="story-modal-content">
+            <span class="close-modal" onclick="closeAddStoryModal()">&times;</span>
+            <h3 style="color: var(--primary-green); margin-bottom: 15px;">Add Story / Status</h3>
+            <input type="text" id="storyAuthorInput" placeholder="Izina ryawe..." style="width:100%; padding:8px; margin-bottom:10px; background:var(--input-bg); color:var(--text-color); border:1px solid var(--border-color); border-radius:6px;">
+            <textarea id="storyTextInput" rows="3" placeholder="Andika status..." style="width:100%; padding:8px; margin-bottom:10px; background:var(--input-bg); color:var(--text-color); border:1px solid var(--border-color); border-radius:6px;"></textarea>
+            <button class="upload-btn" onclick="addNewStory()" style="width: 100%;">Sohora Story</button>
+        </div>
+    </div>
+
+    <!-- STORY VIEW MODAL -->
+    <div class="story-modal" id="viewStoryModal">
+        <div class="story-modal-content">
+            <span class="close-modal" onclick="closeViewStoryModal()">&times;</span>
+            <h3 id="storyViewAuthor" style="color: var(--primary-green); margin-bottom: 10px;"></h3>
+            <p id="storyViewText" style="margin-top: 10px; font-size: 1.1rem;"></p>
+        </div>
+    </div>
+
+    <!-- MAIN LAYOUT -->
+    <div class="layout">
+        <div class="main-content">
+            <!-- UPLOAD SECTION -->
+            <div class="upload-card">
+                <h3>📤 Shyiraho Inkuru / Amakuru Mashya (Firebase)</h3>
+                <div class="upload-form">
+                    <input type="text" id="postAuthor" placeholder="Izina ryawe (Author)...">
+                    <input type="text" id="postTitleInput" placeholder="Umutwe w'amakuru (Title)...">
+                    <textarea id="postDescInput" rows="3" placeholder="Ubusobanuro (Content)..."></textarea>
+                    <button class="upload-btn" onclick="createNewPost()">Sohora Inkuru (Post)</button>
+                </div>
+            </div>
+
+            <!-- POSTS CONTAINER -->
+            <div id="postsContainer">
+                <p style="text-align: center; color: var(--primary-green);">Gukurura amakuru kuri Firebase Database...</p>
+            </div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="card-widget">
+                <h3 style="color: var(--primary-green); margin-bottom: 10px;">💬 CHAT & INSHUTI</h3>
+                <p style="font-size: 0.85rem;">Murakaza neza kuri Rwanda News Online Community!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>📧 <b>Email:</b> niyonkurubosco2008@gmail.com | 📞 <b>WhatsApp:</b> 0796634563</p>
+        <p style="margin-top: 10px; font-size: 0.8rem;">&copy; RWANDA NEWS Powered by Firebase & GitHub Pages</p>
+    </footer>
+
+    <!-- FIREBASE SDK INJECTION -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // FIREBASE CONFIGURATION YAWE
+        const firebaseConfig = {
+            apiKey: "AIzaSyDXAW5dnnOaistELiIZ6LALt8b_Feeocl8",
+            authDomain: "rwanda-news-b4563.firebaseapp.com",
+            projectId: "rwanda-news-b4563",
+            storageBucket: "rwanda-news-b4563.firebasestorage.app",
+            messagingSenderId: "300831273994",
+            appId: "1:300831273994:web:4ecab6ba96846654579bf3",
+            measurementId: "G-KT956QB1Y7"
+        };
+
+        // Tangiza Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // FUNCTION YO GUSOHORA INKURU MURI FIREBASE DATABASE
+        window.createNewPost = async function() {
+            const author = document.getElementById("postAuthor").value.trim() || "Umusomyi";
+            const title = document.getElementById("postTitleInput").value.trim();
+            const desc = document.getElementById("postDescInput").value.trim();
+
+            if (title === "" || desc === "") {
+                alert("Nyamuneka andika umutwe n'ubusobanuro bw'inkuru!");
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, "posts"), {
+                    author: author,
+                    title: title,
+                    desc: desc,
+                    createdAt: new Date()
+                });
+                alert("Inkuru yawe ibitswe muri Firebase neza!");
+                document.getElementById("postAuthor").value = "";
+                document.getElementById("postTitleInput").value = "";
+                document.getElementById("postDescInput").value = "";
+                loadPosts(); // Vugurura ku rubuga
+            } catch (error) {
+                console.error("Erreur Firebase: ", error);
+                alert("Harimo ikibazo! Reba niba ufunguye Firestore Database muri Firebase Test Mode.");
+            }
+        };
+
+        // FUNCTION YO KUZANA AMAKURU YOSE YABITSWE MURI FIREBASE
+        async function loadPosts() {
+            const postsContainer = document.getElementById("postsContainer");
+            postsContainer.innerHTML = "";
+
+            try {
+                const querySnapshot = await getDocs(collection(db, "posts"));
+                if(querySnapshot.empty) {
+                    postsContainer.innerHTML = "<p>Nta nkuru irashyirwaho. Ba uwa mbere gushyiraho inkuru!</p>";
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const card = document.createElement("div");
+                    card.className = "post-card search-item";
+                    card.innerHTML = `
+                        <h3>${data.title}</h3>
+                        <p style="font-size:0.8rem; color:var(--primary-green); margin:5px 0;">By: ${data.author || 'Anon'}</p>
+                        <p class="post-text" style="margin-top:10px;">${data.desc}</p>
+                    `;
+                    postsContainer.appendChild(card);
+                });
+            } catch (error) {
+                console.error("Error loading posts: ", error);
+            }
+        }
+
+        // FUNCTION Z'AMA STATUS (STORIES) MURI FIREBASE
+        window.addNewStory = async function() {
+            const author = document.getElementById("storyAuthorInput").value.trim() || "Umusomyi";
+            const text = document.getElementById("storyTextInput").value.trim();
+
+            if (!text) {
+                alert("Andika agasobanuro k'akanya gato!");
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, "stories"), {
+                    author: author,
+                    text: text,
+                    createdAt: new Date()
+                });
+                closeAddStoryModal();
+                loadStories();
+            } catch (e) {
+                alert("Ikibazo kije mu gushyiraho story!");
+            }
+        };
+
+        async function loadStories() {
+            const container = document.getElementById("storiesContainer");
+            container.innerHTML = `
+                <div class="story-item" onclick="openAddStoryModal()">
+                    <div class="story-avatar">+</div>
+                    <div class="story-username">Shyiraho</div>
+                </div>
+            `;
+
+            try {
+                const snapshot = await getDocs(collection(db, "stories"));
+                snapshot.forEach((doc) => {
+                    const s = doc.data();
+                    const div = document.createElement("div");
+                    div.className = "story-item";
+                    div.innerHTML = `
+                        <div class="story-avatar">${s.author.charAt(0).toUpperCase()}</div>
+                        <div class="story-username">${s.author}</div>
+                    `;
+                    div.onclick = () => {
+                        document.getElementById("storyViewAuthor").innerText = s.author + " 's Status";
+                        document.getElementById("storyViewText").innerText = s.text;
+                        document.getElementById("viewStoryModal").style.display = "flex";
+                    };
+                    container.appendChild(div);
+                });
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        // Load content on start
+        window.onload = function() {
+            loadPosts();
+            loadStories();
+        };
+    </script>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("light-mode");
+        }
+        function openAddStoryModal() { document.getElementById("addStoryModal").style.display = "flex"; }
+        function closeAddStoryModal() { document.getElementById("addStoryModal").style.display = "none"; }
+        function closeViewStoryModal() { document.getElementById("viewStoryModal").style.display = "none"; }
+    </script>
+</body>
+</html>
