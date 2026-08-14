@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="rw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RWANDA NEWS - Urubuga rw'Amakuru n'Imyidagaduro</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #ffffff;
+            --input-bg: #2a2a2a;
+            --border-color: #333333;
+            --primary-green: #00ff66;
+            --nav-bg: #1e1e1e;
+        }
+
+        .light-mode {
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #121212;
+            --input-bg: #e0e0e0;
+            --border-color: #cccccc;
+            --primary-green: #2e7d32;
+            --nav-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding-bottom: 20px;
+        }
+
+        /* NAVIGATION BAR */
+        nav {
+            background-color: var(--nav-bg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #2e7d32;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .universal-search {
+            flex: 1;
+            max-width: 300px;
+            display: flex;
+            gap: 5px;
+        }
+
+        .universal-search input {
+            width: 100%;
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            outline: none;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-green);
+        }
+
+        .theme-toggle-btn {
+            background: none;
+            border: 1px solid var(--primary-green);
+            color: var(--primary-green);
+            padding: 5px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .lang-select {
+            background-color: var(--input-bg);
+            color: var(--primary-green);
+            border: 1px solid var(--primary-green);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+        }
+
+        /* HERO SECTION */
+        .welcome-hero {
+            background-color: var(--card-bg);
+            border-bottom: 2px solid #2e7d32;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .hero-image {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-green);
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.3);
+            margin-bottom: 15px;
+        }
+
+        .typing-text {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            min-height: 2.5rem;
+        }
+
+        /* MARQUEE BAR */
+        .marquee-container {
+            background-color: var(--card-bg);
+            border-bottom: 2px solid var(--primary-green);
+            padding: 10px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            margin-bottom: 15px;
+        }
+
+        .marquee-text {
+            display: inline-block;
+            color: var(--primary-green);
+            font-weight: bold;
+            font-size: 1.05rem;
+            padding-left: 100%;
+            animation: marquee 18s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+
+        /* STORIES / STATUS SECTION */
+        .stories-wrapper {
+            max-width: 1100px;
+            margin: 0 auto 20px auto;
+            padding: 0 15px;
+        }
+
+        .stories-container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            scrollbar-width: thin;
+        }
+
+        .story-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            min-width: 75px;
+        }
+
+        .story-avatar {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-green);
+            padding: 2px;
+            object-fit: cover;
+            background: var(--input-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            position: relative;
+        }
+
+        .add-story-btn {
+            border-style: dashed;
+            background-color: var(--input-bg);
+        }
+
+        .story-username {
+            font-size: 0.75rem;
+            margin-top: 5px;
+            text-align: center;
+            max-width: 70px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: bold;
+        }
+
+        /* STORY VIEW MODAL */
+        .story-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .story-modal-content {
+            background: var(--card-bg);
+            width: 90%;
+            max-width: 400px;
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            text-align: center;
+            border: 2px solid var(--primary-green);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #ff4757;
+            font-weight: bold;
+        }
+
+        /* LAYOUT */
+        .layout {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .main-content { flex: 3; }
+        .sidebar { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+
+        /* UPLOAD BOX STYLES */
+        .upload-card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 2px dashed var(--primary-green);
+        }
+
+        .upload-card h3 {
+            color: var(--primary-green);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .upload-form input[type="text"], .upload-form textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--input-bg);
+            color: var(--text-color);
+            outline: none;
+        }
+
+        .upload-form input[type="file"] {
+            color: var(--text-color);
+            margin: 5px 0;
+        }
+
+        .upload-btn {
+            background: #2e7d32;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .upload-btn:hover {
+            background: var(--primary-green);
+            color: #000;
+        }
+
+        /* CARDS */
+        .card-widget {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            border-top: 3px solid var(--primary-green);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .post-card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* ACTION BUTTONS (LIKE, SHARE & DOWNLOAD) */
+        .post-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+
+        .like-btn, .share-btn, .download-btn {
+            background: none;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .like-btn { color: #ff4757; }
+        .share-btn { color: var(--primary-green); }
+        .download-btn { color: #00a8ff; }
+
+        .share-menu {
+            display: none;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 10px;
+            background: var(--input-bg);
+            border-radius: 8px;
+            flex-wrap: wrap;
+        }
+
+        .share-menu.active {
+            display: flex;
+        }
+
+        .share-opt {
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.85rem;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+        }
+
+        .share-wa { background-color: #25D366; }
+        .share-fb { background-color: #1877F2; }
+        .share-x  { background-color: #000000; border: 1px solid #555; }
+        .share-copy { background-color: #6c757d; }
+
+        /* COMMENT SECTION */
+        .comment-section {
+            margin-top: 15px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
+        }
+
+        .comment-input-box {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .comment-input-box input {
+            flex: 1;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--input-bg);
+            color: var(--text-color);
+        }
+
+        .comment-input-box button {
+            background: #2e7d32;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .comments-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 0.88rem;
+        }
+
+        .comment-item {
+            background: var(--input-bg);
+            padding: 6px 10px;
+            border-radius: 6px;
+        }
+
+        /* SOCIAL MEDIA LINKS */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            border: 1px solid var(--primary-green);
+        }
+
+        .social-icon:hover {
+            background-color: var(--primary-green);
+            color: #000;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--card-bg);
+            border-top: 2px solid #2e7d32;
+            padding: 20px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .footer-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .footer-info a { color: var(--primary-green); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .layout { flex-direction: column; }
+            .nav-container { flex-direction: column; }
+            .universal-search { max-width: 100%; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">RWANDA NEWS</a>
+            
+            <div class="universal-search">
+                <input type="text" id="universalSearchInput" onkeyup="handleSearch()" placeholder="🔍 Shaka amakuru kuri RWANDA NEWS...">
+            </div>
+
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#" class="active" id="nav-home">Home</a></li>
+                    <li><a href="#posts" id="nav-feed">Feed</a></li>
+                    <li><a href="#contact" id="nav-contact">Contact</a></li>
+                </ul>
+
+                <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">🌙 Dark Mode</button>
+
+                <select class="lang-select" id="langSelector" onchange="changeLanguage()">
+                    <option value="rw">🇷🇼 Kinyarwanda</option>
+                    <option value="en">🇬🇧 English</option>
+                    <option value="sw">🇹🇿 Kiswahili</option>
+                </select>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <div class="welcome-hero">
+        <img src="niwowe.png" alt="RWANDA NEWS Profile" class="hero-image">
+        <div>
+            <span class="typing-text" id="typewriter"></span>
+        </div>
+    </div>
+
+    <!-- MARQUEE BAR -->
+    <div class="marquee-container">
+        <div class="marquee-text" id="moving-text">
+            📢 KARIBU KURI RWANDA NEWS! KOMEZA URYOHERWE NO GUKORESHA URUBUGA RWACU, DUFITE AMAKURU MASHYA KANDI AGEZWEHO 📢
+        </div>
+    </div>
+
+    <!-- STATUS / STORIES BAR -->
+    <div class="stories-wrapper">
+        <h4 style="margin-bottom: 10px; color: var(--primary-green);">📸 Status / Stories</h4>
+        <div class="stories-container" id="storiesContainer">
+            <!-- Add Story Button -->
+            <div class="story-item" onclick="openAddStoryModal()">
+                <div class="story-avatar add-story-btn">+</div>
+                <div class="story-username">Shyiraho</div>
+            </div>
+
+            <!-- Sample Default Story -->
+            <div class="story-item" onclick="viewStory('RWANDA NEWS', 'Murakaza neza kuri Rwanda News! Shakisha amakuru agezweho.', 'niwowe.png')">
+                <img src="niwowe.png" class="story-avatar" alt="Rwanda News">
+                <div class="story-username">Admin</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STORY INPUT MODAL -->
+    <div class="story-modal" id="addStoryModal">
+        <div class="story-modal-content">
+            <span class="close-modal" onclick="closeAddStoryModal()">&times;</span>
+            <h3 style="color: var(--primary-green); margin-bottom: 15px;">Andika Status / Story Nshya</h3>
+            <input type="text" id="storyAuthorInput" placeholder="Izina ryawe..." style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color);">
+            <textarea id="storyTextInput" rows="3" placeholder="Andika icyo utekereza hano..." style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color);"></textarea>
+            <input type="file" id="storyImageInput" accept="image/*" style="margin-bottom: 15px; color: var(--text-color);">
+            <button class="upload-btn" onclick="addNewStory()" style="width: 100%;">Sohora Story</button>
+        </div>
+    </div>
+
+    <!-- STORY VIEW MODAL -->
+    <div class="story-modal" id="viewStoryModal">
+        <div class="story-modal-content">
+            <span class="close-modal" onclick="closeViewStoryModal()">&times;</span>
+            <h3 id="storyViewAuthor" style="color: var(--primary-green); margin-bottom: 10px;"></h3>
+            <div id="storyViewMedia"></div>
+            <p id="storyViewText" style="margin-top: 10px; font-size: 1rem;"></p>
+        </div>
+    </div>
+
+    <!-- MAIN LAYOUT -->
+    <div class="layout">
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+
+            <!-- UPLOAD SECTION -->
+            <div class="upload-card">
+                <h3 id="upload-title">📤 Shyiraho Amakuru/Amapfoto/Amashusho Nshya</h3>
+                <div class="upload-form">
+                    <input type="text" id="postTitleInput" placeholder="Umutwe w'amakuru (Title)...">
+                    <textarea id="postDescInput" rows="3" placeholder="Ubusobanuro (Description)..."></textarea>
+                    <input type="file" id="postFileInput" accept="image/*,video/*">
+                    <button class="upload-btn" onclick="createNewPost()" id="uploadBtn">Sohora (Post)</button>
+                </div>
+            </div>
+
+            <!-- POSTS CONTAINER -->
+            <div id="postsContainer">
+                
+                <!-- Post ya Video -->
+                <div class="post-card search-item">
+                    <h3>Live Performance</h3>
+                    <video controls poster="niwowe.png" style="width: 100%; border-radius: 8px; margin: 10px 0;">
+                        <source src="video_yanjye.mp4" type="video/mp4">
+                    </video>
+                    <p class="post-text">Video iri hit</p>
+
+                    <div class="post-actions">
+                        <button class="like-btn" onclick="addLike(this)">❤️ <span>0</span> Likes</button>
+                        <button class="share-btn" onclick="toggleShareMenu(this)">🔗 Share</button>
+                        <a href="video_yanjye.mp4" download="RwandaNews_LivePerformance.mp4" class="download-btn">📥 Download Video</a>
+                    </div>
+
+                    <!-- SHARE OPTIONS -->
+                    <div class="share-menu">
+                        <a href="https://api.whatsapp.com/send?text=Soma%20amakuru%20kuri%20RWANDA%20NEWS" target="_blank" class="share-opt share-wa">WhatsApp</a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://rwandanews.com" target="_blank" class="share-opt share-fb">Facebook</a>
+                        <a href="https://twitter.com/intent/tweet?text=Amakuru%20mashya" target="_blank" class="share-opt share-x">X / Twitter</a>
+                        <button class="share-opt share-copy" onclick="copyPostLink(this)">Copy Link</button>
+                    </div>
+
+                    <div class="comment-section">
+                        <h4 style="font-size: 0.9rem; margin-bottom: 8px;">Ibitekerezo (Comments):</h4>
+                        <div class="comment-input-box">
+                            <input type="text" placeholder="Andika igitekerezo cyawe...">
+                            <button onclick="addComment(this)">Oherereza</button>
+                        </div>
+                        <ul class="comments-list">
+                            <li class="comment-item"><b>Eric:</b> RWANDA NEWS ni urubuga rwiza cyane! 🔥</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDEBAR -->
+        <div class="sidebar">
+
+            <div class="card-widget search-item">
+                <h3 style="color: var(--primary-green); margin-bottom: 10px;" id="social-title">💬 CHAT & INSHUTI</h3>
+                <p style="font-size: 0.85rem; margin-bottom: 8px;">Jean Luc (Online)</p>
+            </div>
+
+            <div class="card-widget search-item">
+                <h3 style="color: #64b5f6;">🏆 SPORT / IMIKINO</h3>
+                <p style="font-size: 0.85rem; margin-top: 5px;">Football, Basketball, Volleyball</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="footer-content">
+            <h3 id="footer-contact-title" style="color: var(--primary-green); margin-bottom: 10px;">Tuvugishe / Contact Us</h3>
+            <div class="footer-info">
+                <p>📧 <b>Email:</b> <a href="mailto:niyonkurubosco2008@gmail.com">niyonkurubosco2008@gmail.com</a></p>
+                <p>📞 <b>Phone / WhatsApp:</b> <a href="tel:0796634563">0796634563</a></p>
+            </div>
+
+            <div class="social-links">
+                <a href="https://wa.me/250796634563" target="_blank" class="social-icon" title="WhatsApp">WA</a>
+                <a href="https://instagram.com" target="_blank" class="social-icon" title="Instagram">IG</a>
+                <a href="https://youtube.com" target="_blank" class="social-icon" title="YouTube">YT</a>
+                <a href="https://facebook.com" target="_blank" class="social-icon" title="Facebook">FB</a>
+            </div>
+
+            <p style="margin-top: 15px; font-size: 0.8rem; opacity: 0.7;">&copy; All Rights Reserved. RWANDA NEWS.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("light-mode");
+            const btn = document.getElementById("themeBtn");
+            if (document.body.classList.contains("light-mode")) {
+                btn.innerText = "☀️ Light Mode";
+            } else {
+                btn.innerText = "🌙 Dark Mode";
+            }
+        }
+
+        function addLike(btn) {
+            const countSpan = btn.querySelector("span");
+            let count = parseInt(countSpan.innerText);
+            count++;
+            countSpan.innerText = count;
+        }
+
+        function toggleShareMenu(btn) {
+            const postCard = btn.closest('.post-card');
+            const shareMenu = postCard.querySelector('.share-menu');
+            shareMenu.classList.toggle('active');
+        }
+
+        function copyPostLink(btn) {
+            navigator.clipboard.writeText(window.location.href);
+            btn.innerText = "Copied! ✓";
+            setTimeout(() => {
+                btn.innerText = "Copy Link";
+            }, 2000);
+        }
+
+        /* STORY / STATUS FUNCTIONS */
+        function openAddStoryModal() {
+            document.getElementById("addStoryModal").style.display = "flex";
+        }
+
+        function closeAddStoryModal() {
+            document.getElementById("addStoryModal").style.display = "none";
+        }
+
+        function closeViewStoryModal() {
+            document.getElementById("viewStoryModal").style.display = "none";
+        }
+
+        function addNewStory() {
+            const author = document.getElementById("storyAuthorInput").value.trim() || "Umusomyi";
+            const text = document.getElementById("storyTextInput").value.trim();
+            const imageInput = document.getElementById("storyImageInput");
+            const file = imageInput.files[0];
+
+            if (text === "" && !file) {
+                alert("Andika agasobanuro cyangwa ushyireho ifoto ku status!");
+                return;
+            }
+
+            let imgURL = "";
+            if (file) {
+                imgURL = URL.createObjectURL(file);
+            }
+
+            const storiesContainer = document.getElementById("storiesContainer");
+            const newStoryItem = document.createElement("div");
+            newStoryItem.className = "story-item";
+            
+            const avatarContent = imgURL ? `<img src="${imgURL}" class="story-avatar">` : `<div class="story-avatar">${author.charAt(0).toUpperCase()}</div>`;
+
+            newStoryItem.innerHTML = `
+                ${avatarContent}
+                <div class="story-username">${author}</div>
+            `;
+
+            newStoryItem.onclick = function() {
+                viewStory(author, text, imgURL);
+            };
+
+            storiesContainer.appendChild(newStoryItem);
+
+            // Reset Form & Close Modal
+            document.getElementById("storyAuthorInput").value = "";
+            document.getElementById("storyTextInput").value = "";
+            imageInput.value = "";
+            closeAddStoryModal();
+        }
+
+        function viewStory(author, text, imgURL) {
+            document.getElementById("storyViewAuthor").innerText = author + " 's Status";
+            document.getElementById("storyViewText").innerText = text;
+
+            const mediaBox = document.getElementById("storyViewMedia");
+            if (imgURL) {
+                mediaBox.innerHTML = `<img src="${imgURL}" style="max-width: 100%; max-height: 250px; border-radius: 8px;">`;
+            } else {
+                mediaBox.innerHTML = "";
+            }
+
+            document.getElementById("viewStoryModal").style.display = "flex";
+        }
+
+        function downloadArticleText(btn, titleText) {
+            const postCard = btn.closest('.post-card');
+            const descText = postCard.querySelector('.post-text') ? postCard.querySelector('.post-text').innerText : '';
+            
+            const fullContent = `RWANDA NEWS\n\nTITLE: ${titleText}\n\nDETAILS:\n${descText}\n\nSource: RWANDA NEWS Official Website`;
+            
+            const blob = new Blob([fullContent], { type: "text/plain;charset=utf-8" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = `${titleText.replace(/[^a-zA-Z0-0]/g, "_")}_RwandaNews.txt`;
+            link.click();
+        }
+
+        function addComment(btn) {
+            const inputBox = btn.previousElementSibling;
+            const commentText = inputBox.value.trim();
+            if (commentText !== "") {
+                const commentsList = btn.parentElement.nextElementSibling;
+                const li = document.createElement("li");
+                li.className = "comment-item";
+                li.innerHTML = `<b>Umusomyi:</b> ${commentText}`;
+                commentsList.appendChild(li);
+                inputBox.value = "";
+            }
+        }
+
+        function createNewPost() {
+            const title = document.getElementById("postTitleInput").value.trim();
+            const desc = document.getElementById("postDescInput").value.trim();
+            const fileInput = document.getElementById("postFileInput");
+            const file = fileInput.files[0];
+
+            if (title === "") {
+                alert("Nyamuneka andika umutwe w'amakuru (Title)!");
+                return;
+            }
+
+            let mediaHTML = "";
+            let downloadBtnHTML = `<button class="download-btn" onclick="downloadArticleText(this, '${title}')">📥 Download Inkuru (TXT)</button>`;
+
+            if (file) {
+                const fileURL = URL.createObjectURL(file);
+                if (file.type.startsWith("image/")) {
+                    mediaHTML = `<img src="${fileURL}" style="width: 100%; border-radius: 8px; margin: 10px 0; max-height: 400px; object-fit: cover;">`;
+                    downloadBtnHTML = `<a href="${fileURL}" download="${file.name}" class="download-btn">📥 Download Ifoto</a>`;
+                } else if (file.type.startsWith("video/")) {
+                    mediaHTML = `<video controls style="width: 100%; border-radius: 8px; margin: 10px 0;">
+                                    <source src="${fileURL}" type="${file.type}">
+                                 </video>`;
+                    downloadBtnHTML = `<a href="${fileURL}" download="${file.name}" class="download-btn">📥 Download Video</a>`;
+                }
+            }
+
+            const shareText = encodeURIComponent(title + " - RWANDA NEWS");
+
+            const postsContainer = document.getElementById("postsContainer");
+            const newPostCard = document.createElement("div");
+            newPostCard.className = "post-card search-item";
+            
+            newPostCard.innerHTML = `
+                <h3>${title}</h3>
+                ${mediaHTML}
+                <p class="post-text">${desc}</p>
+
+                <div class="post-actions">
+                    <button class="like-btn" onclick="addLike(this)">❤️ <span>0</span> Likes</button>
+                    <button class="share-btn" onclick="toggleShareMenu(this)">🔗 Share</button>
+                    ${downloadBtnHTML}
+                </div>
+
+                <div class="share-menu">
+                    <a href="https://api.whatsapp.com/send?text=${shareText}" target="_blank" class="share-opt share-wa">WhatsApp</a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=${window.location.href}" target="_blank" class="share-opt share-fb">Facebook</a>
+                    <a href="https://twitter.com/intent/tweet?text=${shareText}" target="_blank" class="share-opt share-x">X / Twitter</a>
+                    <button class="share-opt share-copy" onclick="copyPostLink(this)">Copy Link</button>
+                </div>
+
+                <div class="comment-section">
+                    <h4 style="font-size: 0.9rem; margin-bottom: 8px;">Ibitekerezo (Comments):</h4>
+                    <div class="comment-input-box">
+                        <input type="text" placeholder="Andika igitekerezo cyawe...">
+                        <button onclick="addComment(this)">Oherereza</button>
+                    </div>
+                    <ul class="comments-list"></ul>
+                </div>
+            `;
+
+            postsContainer.insertBefore(newPostCard, postsContainer.firstChild);
+
+            document.getElementById("postTitleInput").value = "";
+            document.getElementById("postDescInput").value = "";
+            fileInput.value = "";
+        }
+
+        function handleSearch() {
+            const query = document.getElementById("universalSearchInput").value.toLowerCase();
+            const items = document.querySelectorAll(".search-item");
+
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        }
+
+        const translations = {
+            rw: {
+                navHome: "Ahabanza", navFeed: "Feed", navContact: "Tuvugishe",
+                socialTitle: "💬 CHAT & INSHUTI", footerContactTitle: "Tuvugishe / Contact Us",
+                movingText: "📢 KARIBU KURI RWANDA NEWS! KOMEZA URYOHERWE NO GUKORESHA URUBUGA RWACU, DUFITE AMAKURU MASHYA KANDI AGEZWEHO 📢",
+                typingWords: ["Murakaza neza!", "Murakaza neza kuri RWANDA NEWS!"],
+                uploadTitle: "📤 Shyiraho Amakuru/Amapfoto/Amashusho Nshya", uploadBtn: "Sohora (Post)"
+            },
+            en: {
+                navHome: "Home", navFeed: "Feed", navContact: "Contact",
+                socialTitle: "💬 CHAT & FRIENDS", footerContactTitle: "Contact Us",
+                movingText: "📢 WELCOME TO RWANDA NEWS! KEEP ENJOYING OUR WEBSITE, STAY TUNED FOR FRESH NEWS 📢",
+                typingWords: ["Welcome!", "Welcome to RWANDA NEWS!"],
+                uploadTitle: "📤 Upload New News/Photos/Videos", uploadBtn: "Post Now"
+            },
+            sw: {
+                navHome: "Mwanzo", navFeed: "Feed", navContact: "Wasiliana",
+                socialTitle: "💬 CHAT NA MARAFIKI", footerContactTitle: "Wasiliana Nasi",
+                movingText: "📢 KARIBU KISHA RWANDA NEWS! ENDELEA KUFURAHIA TOVUTI YETU KWA HABARI MPYA 📢",
+                typingWords: ["Karibu sana!", "Karibu kwenye RWANDA NEWS!"],
+                uploadTitle: "📤 Weka Habari/Picha/Video Mpya", uploadBtn: "Chapisha"
+            }
+        };
+
+        let currentWords = translations.rw.typingWords;
+        let wordIndex = 0, charIndex = 0, isDeleting = false;
+
+        function changeLanguage() {
+            const lang = document.getElementById("langSelector").value;
+            const t = translations[lang];
+
+            document.getElementById("nav-home").innerText = t.navHome;
+            document.getElementById("nav-feed").innerText = t.navFeed;
+            document.getElementById("nav-contact").innerText = t.navContact;
+            document.getElementById("social-title").innerText = t.socialTitle;
+            document.getElementById("footer-contact-title").innerText = t.footerContactTitle;
+            document.getElementById("moving-text").innerText = t.movingText;
+            document.getElementById("upload-title").innerText = t.uploadTitle;
+            document.getElementById("uploadBtn").innerText = t.uploadBtn;
+
+            currentWords = t.typingWords;
+            wordIndex = 0; charIndex = 0; isDeleting = false;
+        }
+
+        function typeEffect() {
+            const currentWord = currentWords[wordIndex];
+            const target = document.getElementById("typewriter");
+
+            if (isDeleting) {
+                target.innerText = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                target.innerText = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentWord.length) {
+                setTimeout(() => isDeleting = true, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % currentWords.length;
+            }
+
+            setTimeout(typeEffect, isDeleting ? 60 : 120);
+        }
+
+        window.onload = function() {
+            typeEffect();
+        };
+    </script>
+
+</body>
+</html>
